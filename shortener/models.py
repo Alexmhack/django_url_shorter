@@ -8,3 +8,7 @@ class KirrURL(models.Model):
 
 	def __str__(self):
 		return str(self.url)
+
+	def save(self, *args, **kwargs):
+		print('saving this custom method')
+		super(KirrURL, self).save(*args, **kwargs)
