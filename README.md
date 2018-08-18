@@ -37,6 +37,7 @@ DateTimeField(auto_now_add=true)
 # auto_now_add=True means that the date of creating the object will be saved here.
 ```
 
+# Django shell
 ```
 python manage.py shell
 ```
@@ -93,3 +94,36 @@ print(obj5)
 obj6 = KirrURL.objects.get_or_create(url='https://youtube.com')
 >>> ('https://youtube.com', False)		# False says this object existed and not created now
 ```
+
+# Overiding save method
+In order to create a shortcode automatically whenever we create a new url object we are 
+going to overide the default save method in our KirrURL model.
+
+Remember how we used the save method with the object in the django shell
+
+```
+...
+obj.save()
+```
+
+Now for overiding it we need to define the save method in our model class ourselves like so
+
+```
+...
+	def save(self, *args, **kwargs:
+		super(KirrURL, self).save(*args, **kwargs)
+
+```
+
+The moment we define the save method in our class, it doesn't matter if we have done 
+modified it or not, we have overided the save method and before us calling the super method
+we can do whatever custom operation we want our save method to run before saving the model,
+
+```
+...
+	def save(self, *args, **kwargs:
+		print('saving our custom method...')
+		super(KirrURL, self).save(*args, **kwargs)
+```
+
+Now if we try to save our object, it will print the line everytime.
