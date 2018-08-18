@@ -17,6 +17,6 @@ class KirrURL(models.Model):
 		return str(self.url)
 
 	def save(self, *args, **kwargs):
-		print('saving this custom method')
-		self.shortcode = 'http://' + str(code_generator()) + '.co'
+		if self.shortcode is None or self.shortcode == '':
+			self.shortcode = 'http://' + str(code_generator()) + '.co'
 		super(KirrURL, self).save(*args, **kwargs)
