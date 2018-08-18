@@ -2,7 +2,7 @@ import random
 
 from django.db import models
 
-def code_generator(size=6, chars='qwertyuioplkjhgfdsazxcvbnm'):
+def code_generator(size=5, chars='qwertyuioplkjhgfdsazxcvbnm'):
 	return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -17,5 +17,5 @@ class KirrURL(models.Model):
 
 	def save(self, *args, **kwargs):
 		print('saving this custom method')
-		self.shortcode = code_generator()
+		self.shortcode = 'http://' + str(code_generator()) + '.co'
 		super(KirrURL, self).save(*args, **kwargs)
