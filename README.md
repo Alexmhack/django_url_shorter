@@ -127,3 +127,25 @@ we can do whatever custom operation we want our save method to run before saving
 ```
 
 Now if we try to save our object, it will print the line everytime.
+
+# Random URL generator
+Function code_generator creates a random code from all the alphabets using the random 
+module in python and setting the range to 6 letters code.
+
+```
+def code_generator(size=6, chars='qwertyuioplkjhgfdsazxcvbnm'):
+	return ''.join(random.choice(chars) for _ in range(size))
+```
+
+We have used python generators to create a random, this is a very basic function which is
+not very powerful, but we will upgrade to a better url generator
+
+```
+import string
+
+def code_generator(size=6, chars=string.ascii_lowercase + string.digits + string.ascii_uppercase):
+	return ''.join(random.choice(chars) for _ in range(size))
+```
+
+A modern approach in python for getting all the ascii letters and digits will be to use
+string module.
