@@ -15,6 +15,8 @@ class KirrURL(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=True)
 
+	objects = KirrModelManagar()
+
 	def __str__(self):
 		return str(self.url)
 
