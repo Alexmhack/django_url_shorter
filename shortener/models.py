@@ -1,6 +1,6 @@
 from django.db import models
 
-from .utils import code_generator
+from .utils import code_generator, create_shortcode
 
 class KirrURL(models.Model):
 	url = models.URLField(max_length=220)
@@ -13,5 +13,5 @@ class KirrURL(models.Model):
 
 	def save(self, *args, **kwargs):
 		if self.shortcode is None or self.shortcode == '':
-			self.shortcode = 'http://' + str(code_generator()) + '.co'
+			self.shortcode = 'http://' + str(create_shortcode(self)) + '.co'
 		super(KirrURL, self).save(*args, **kwargs)
