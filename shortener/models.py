@@ -12,7 +12,7 @@ class KirrModelManagar(models.Manager):
 		qs = KirrURL.objects.filter(id__gte=1)
 		new_codes = 0
 		for q in qs:
-			q.shortcode = create_shortcode(q)
+			q.shortcode = 'http://' + str(create_shortcode(q)) + '.co'
 			print(q.shortcode)
 			q.save()
 			new_codes += 1
