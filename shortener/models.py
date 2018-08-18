@@ -2,6 +2,12 @@ from django.db import models
 
 from .utils import code_generator, create_shortcode
 
+class KirrModelManagar(models.Manager):
+	def all(self, *args, **kwargs):
+		queryset = super(KirrModelManagar, self).all(*args, **kwargs)
+		return queryset
+
+
 class KirrURL(models.Model):
 	url = models.URLField(max_length=220)
 	shortcode = models.URLField(max_length=15, unique=True, blank=True)
