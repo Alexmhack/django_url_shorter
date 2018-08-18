@@ -8,6 +8,16 @@ class KirrModelManagar(models.Manager):
 		qs = queryset.filter(active=True)
 		return qs
 
+	def refresh_shortcodes(self):
+		qs = KirrURL.objects.filter(id__gte=1)
+		new_codes = 0
+		for q in qs:
+			q.shortcode = create_shortcode(q)
+			print(q.shortcode)
+			q.save()
+			new_codes += 1
+		return f"New codes made: {new_codes}"
+
 
 class KirrURL(models.Model):
 	url = models.URLField(max_length=220)
