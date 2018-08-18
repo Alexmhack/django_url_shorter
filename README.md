@@ -36,3 +36,60 @@ edited or updated
 DateTimeField(auto_now_add=true)
 # auto_now_add=True means that the date of creating the object will be saved here.
 ```
+
+```
+python manage.py shell
+```
+
+Running shell in django project and executing some model specific command will give you all
+information about your django apps, database, fields, etc.
+
+You can even create model objects from shell using the model API through the shell.
+You just need to import your model from your app,
+
+```
+from shortener.models import KirrURL
+KirrURL.objects.all()
+KirrURL.objects.create(
+	url='https://google.com',
+	shortcode='http://go.gl')
+```
+
+The above command will actually create an KirrURL model object with the following values
+But the flaw here is that you can pass in empty values and the shell won't raise any errors,
+whereas if you do the same in the admin site, you will get many errors,
+
+```
+obj = KirrURL()
+obj.save()
+obj1 = KirrURL.objects.create()
+obj1.url = 'https://udacity.com'
+```
+
+Try this and shell does not raise any errors.
+
+```
+obj3, created = KirrURL.objects.get_or_create(url='https://joincfe.com')
+```
+
+objects.get_or_create either gets the object if it exists by checking the field value or it 
+creates one, you can check this by printing the values of each variable
+
+```
+print(obj3)			# https://joincfe.com
+print(created)		# True
+```
+
+If the objects does not exist and it has been created now then created should be True
+
+Or you can just use one variable and shell will print the values in a tuple
+
+```
+obj5 = KirrURL.objects.get_or_create(url='https://youtube.com')
+print(obj5)
+
+>>> ('https://youtube.com', True)		# url value and created or not boolean
+
+obj6 = KirrURL.objects.get_or_create(url='https://youtube.com')
+>>> ('https://youtube.com', False)		# False says this object existed and not created now
+```
