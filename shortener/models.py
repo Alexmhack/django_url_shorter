@@ -5,7 +5,7 @@ from .utils import code_generator, create_shortcode
 class KirrModelManagar(models.Manager):
 	def all(self, *args, **kwargs):
 		queryset = super(KirrModelManagar, self).all(*args, **kwargs)
-		qs = queryset.filter(active=False)
+		qs = queryset.filter(active=True)
 		return qs
 
 
