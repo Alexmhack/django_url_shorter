@@ -149,3 +149,86 @@ def code_generator(size=6, chars=string.ascii_lowercase + string.digits + string
 
 A modern approach in python for getting all the ascii letters and digits will be to use
 string module.
+
+# Custom model manager
+
+Django allows all custom support that is we can change many default things with our models
+in django, here we have put all our function in a seperate utils.py file and imported them
+in our models.
+
+KirrModelManager is a custom model manager which is through our class inheritance by the
+models.Manager class
+
+```
+class KirrModelManager(models.Manager):
+	def all():
+		...
+```
+
+Overiding all method in here and telling our KirrURL model to use this manager instead of 
+the default one will give us access to custom model manager,
+
+```
+class KirrModelManagar(models.Manager):
+	def all(self, *args, **kwargs):
+		queryset = super(KirrModelManagar, self).all(*args, **kwargs)
+		qs = queryset.filter(active=True)
+		return qs
+
+
+class KirrURL(models.Model):
+	...
+	objects = KirrModelManagar()
+	...
+```
+
+Don't forget to define our Model Manager in the model by replacing it with objects, remeber
+we use 
+
+```
+model.*objects*.all()
+```
+
+What we have done here is very simple, we just call our super class to give us the all()
+method that we use on model.objects.all() and we return all method with a filter, we filter
+out all objects who have active field True, this means the command,
+
+```
+*django shell*
+from shortener.models import KirrURL
+KirrURL.objects.all().count()
+KirrURL.objects.filter(active=False).count()
+```
+
+The custom model manager now has a new function that we can use directly with our objects
+like so,
+
+```
+class KirrModelManagar(models.Manager):
+	...
+	def refresh_shortcodes(self):
+			qs = KirrURL.objects.filter(id__gte=1)
+			new_codes = 0
+			for q in qs:
+				q.shortcode = 'http://' + str(create_shortcode(q)) + '.co'
+				print(q.shortcode)
+				q.save()
+				new_codes += 1
+			return f"New codes made: {new_codes}"
+```
+
+```
+KirrURL.objects.refresh_shortcodes()
+```
+
+Since we have our custom all() method with objects which does not return those objects with
+active = False so we cannot use all method to access all the objects of our model so another
+workaround will be to use the filter method and a attribute like 
+
+```
+queryset = KirrURL.objects.filter(id__gte=1)
+```
+
+What above command says is to filter our all objects who have their 'id' (auto generated 
+field produced by django) __gte means greater than or equal to 1 which will cover all the 
+objects since every id will be greater than or equal to 1.
