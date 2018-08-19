@@ -9,5 +9,5 @@ class Command(BaseCommand):
         parser.add_argument('number', type=int)
 
     def handle(self, *args, **options):
-        return KirrURL.objects.refresh_shortcodes()
-        
+        print(options)
+        return KirrURL.objects.refresh_shortcodes(items=options['number'])
