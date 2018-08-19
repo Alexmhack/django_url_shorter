@@ -268,3 +268,15 @@ python manage.py refreshcodes
 		print(items)
 		...
 ```
+
+Model manager also has an property .order_by() which takes in the fields of the models.
+This method orders the objects on the basis of the field, we can order by in decreasing order
+by putting a '-' before our field name and pass in to order_by()
+
+```
+qs = KirrURL.objects.filter(id__gte=1).order_by('-id')
+qs = KirrURL.objects.filter(id__gte=1).count()
+```
+
+.count() returns the number of objects returned from the query and order_by orders the
+returned objects in decreasing order of id's of objects
