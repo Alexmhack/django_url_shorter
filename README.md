@@ -232,3 +232,22 @@ queryset = KirrURL.objects.filter(id__gte=1)
 What above command says is to filter our all objects who have their 'id' (auto generated 
 field produced by django) __gte means greater than or equal to 1 which will cover all the 
 objects since every id will be greater than or equal to 1.
+
+# Django-admin commands
+Source: [django-admin commands](https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/)
+We don't need arguments and neither their handling, we just need to call our refresh_
+shortcodes() from the handle function.
+
+```
+from shortener.models import KirrURL
+
+	...
+	def handle(self, *args, **options):
+	        return KirrURL.objects.refresh_shortcodes()
+```
+
+Run the refreshcodes command directly from root folder using manage.py file,
+
+```
+python manage.py refreshcodes
+```
