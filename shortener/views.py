@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 
 def kirr_redirect_view(request, *args, **kwargs):
+	print(args, kwargs, request)
 	return HttpResponse('<h1>Kirr Url Shortener</h1>')
 
 
