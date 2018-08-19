@@ -355,3 +355,36 @@ def create_shortcode(instance, size=SHORTCODE_MIN):
 Similarly we can import and use the variable in utils.py file
 
 *WHAT WE DID ABOVE IS FOR THOSE CASES WHEN WE REUSE OUR APP IN SOME OTHER PROJECTS*
+
+# Get object or 404
+```
+from django.shortcuts import render, get_object_or_404
+
+def kirr_redirect_view(request, shortcode=None, *args, **kwargs):
+	object = get_object_or_404(KirrURL, shortcode=shortcode)
+	return HttpResponseRedirect(obj_url)
+```
+
+The simplest and two line solution for redirecting from our shortcoded url to the actual
+url is using the get_object_or_404 method which will just get the object from the model
+we provided and the parameter which here is the shortcode, if we get the object we return
+Response Redirect to the actual url associated with the object
+
+Then for testing purposes on our local computer we use the hosts of our WINDOWS which is 
+located at *C:\WINDOWS\system32\drivers\etc* and set our localhost to any custom domain
+
+```
+127.0.0.1 			djgo.com
+127.0.0.1 			www.djgo.com
+```
+
+One important thing left is to add our custom domain in allowed hosts of our project
+settings...
+
+**kirr/settings.py**
+```
+ALLOWED_HOSTS = ['djgo.com', '127.0.0.1', 'www.djgo.com']
+```
+
+Now accessing the url with our custom domain like *http://djgo.com:8000/func-view/asdgsd/*
+This will redirect to the specified url of the object or return a 404 page
