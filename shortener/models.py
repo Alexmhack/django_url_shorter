@@ -17,7 +17,7 @@ class KirrModelManagar(models.Manager):
 			qs = qs.order_by('-id')[:items]
 		new_codes = 0
 		for q in qs:
-			q.shortcode = 'http://' + str(create_shortcode(q)) + '.co'
+			q.shortcode = str(create_shortcode(q))
 			print(q.id, q.shortcode)
 			q.save()
 			new_codes += 1
@@ -26,7 +26,7 @@ class KirrModelManagar(models.Manager):
 
 class KirrURL(models.Model):
 	url = models.URLField(max_length=220)
-	shortcode = models.URLField(max_length=SHORTCODE_MAX, unique=True, blank=True)
+	shortcode = models.CharField(max_length=SHORTCODE_MAX, unique=True, blank=True)
 	updated = models.DateTimeField(auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=True)
@@ -38,5 +38,5 @@ class KirrURL(models.Model):
 
 	def save(self, *args, **kwargs):
 		if self.shortcode is None or self.shortcode == '':
-			self.shortcode = 'http://' + str(create_shortcode(self)) + '.co'
+			self.shortcode = str(create_shortcode(self))
 		super(KirrURL, self).save(*args, **kwargs)
