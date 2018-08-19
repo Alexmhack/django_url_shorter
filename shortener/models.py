@@ -8,7 +8,8 @@ class KirrModelManagar(models.Manager):
 		qs = queryset.filter(active=True)
 		return qs
 
-	def refresh_shortcodes(self):
+	def refresh_shortcodes(self, items):
+		print(items)
 		qs = KirrURL.objects.filter(id__gte=1)
 		new_codes = 0
 		for q in qs:
