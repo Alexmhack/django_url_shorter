@@ -308,3 +308,48 @@ def kirr_redirect_view(request, *args, **kwargs):
 ```
 
 **NOTE:** Don't forget to return from our views or the view won't work.
+
+# Using Setting Variable
+A more robust way for getting a specified value and using it in our code is to define 
+important and usable variables in our project settings.py file and then importing and using 
+those variables in other files.
+
+**kirr/settings.py**
+```
+...
+SHORTCODE_MAX = 15
+SHORTCODE_MIN = 5
+...
+```
+
+Our functions in models.py has max_length attribute in shortcode field so we can specify a 
+value from settings file to use in our max_length
+
+**shortener/models.py**
+```
+from django.conf import settings
+
+SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
+
+class KirrURL(models.Model):
+	...
+	shortcode = models.URLField(max_length=SHORTCODE_MAX, unique=True, blank=True)
+	...
+```
+
+Notice the getattr function, this function is very useful in these cases, if the getattr 
+methods find the variable SHORTCODE_MAX in settings (which we import at top) then it will
+assign SHORTCODE_MAX the value but if it doesn't then it will return 15 which is a default 
+value.
+
+**shortener/utils.py**
+```
+from django.conf import settings
+
+SHORTCODE_MIN = getattr(settings, "SHORTCODE_MIN", 5)
+
+def create_shortcode(instance, size=SHORTCODE_MIN):
+	...
+```
+
+Similarly we can import and use the variable in utils.py file
