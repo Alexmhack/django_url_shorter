@@ -23,6 +23,6 @@ from shortener.views import (
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
-	path('func-view/<slug>/', kirr_redirect_view, name='func-view'),
-	path('class-view/<slug>/', KirrRedirectView.as_view(), name='class-view'),
+	path('func-view/<shortcode>/', kirr_redirect_view, name='func-view'),
+	path('class-view/<shortcode>/', KirrRedirectView.as_view(), name='class-view'),
 ]
