@@ -280,3 +280,31 @@ qs = KirrURL.objects.filter(id__gte=1).count()
 
 .count() returns the number of objects returned from the query and order_by orders the
 returned objects in decreasing order of id's of objects
+
+# Views and Urls
+There are two ways in which we can make our views > *function based views and class based 
+views*, class based views need a model upon which they can display the page but we can
+also use get method to just return what we want. After creating views, each view needs a url
+for us to locate and look at the particular view, just import the view in urls.py file and
+create a view using the function or class, class based views needs a .as_view() method
+since they are not simple functions.
+
+**class-based view**
+```
+from django.http import HttpResponse
+from django.views import View
+
+class KirrRedirectView(View):
+	def get(self, request, *args, **kwargs):
+		return HttpResponse("<h1>Kirr Url Shortener Again</h1>")
+```
+
+**NOTE:** Class based views need a model upon which they are based but here for starters we
+are just using the get method in View class to return our response on webpage.
+
+```
+def kirr_redirect_view(request, *args, **kwargs):
+	return HttpResponse('<h1>Kirr Url Shortener</h1>')
+```
+
+**NOTE:** Don't forget to return from our views or the view won't work.
