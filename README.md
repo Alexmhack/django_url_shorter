@@ -353,3 +353,5 @@ def create_shortcode(instance, size=SHORTCODE_MIN):
 ```
 
 Similarly we can import and use the variable in utils.py file
+
+*WHAT WE DID ABOVE IS FOR THOSE CASES WHEN WE REUSE OUR APP IN SOME OTHER PROJECTS*
