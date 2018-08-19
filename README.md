@@ -234,7 +234,7 @@ field produced by django) __gte means greater than or equal to 1 which will cove
 objects since every id will be greater than or equal to 1.
 
 # Django-admin commands
-Source: [django-admin commands](https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/)
+*Source*: [django-admin commands](https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/)
 We don't need arguments and neither their handling, we just need to call our refresh_
 shortcodes() from the handle function.
 
@@ -246,8 +246,25 @@ from shortener.models import KirrURL
 	        return KirrURL.objects.refresh_shortcodes()
 ```
 
-Run the refreshcodes command directly from root folder using manage.py file,
+*Run the refreshcodes command directly from root folder using manage.py file,*
 
 ```
 python manage.py refreshcodes
+```
+
+**Using Arguments in Django-Admin commands**
+
+**shortener/management/commands/refreshcodes.py**
+```
+	...
+	def add_arguments(self, parser):
+	        parser.add_argument('number', type=int)
+```
+
+**shortener/models.py**
+```
+	...
+	def refresh_shortcodes(self, items):
+		print(items)
+		...
 ```
