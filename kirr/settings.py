@@ -25,7 +25,7 @@ SECRET_KEY = 'n$eh&@+u$84&o3i5cr%!)chjtjrl1h(-%9k*lx#*=+gb8%s#$i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['djgo.com']
+ALLOWED_HOSTS = ['djgo.com', '127.0.0.1', 'www.djgo.com']
 
 
 # Application definition
