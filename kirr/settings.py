@@ -119,3 +119,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# SHORTENER URLS SETTINGS
+SHORTCODE_MAX = 15
+SHORTCODE_MIN = 5
