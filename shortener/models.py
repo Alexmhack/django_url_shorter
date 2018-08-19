@@ -3,8 +3,8 @@ from django.conf import settings
 
 from .utils import code_generator, create_shortcode
 
-SHORTCODE_MAX = settings.SHORTCODE_MAX
-SHORTCODE_MIN = settings.SHORTCODE_MIN
+SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
+SHORTCODE_MIN = getattr(settings, "SHORTCODE_MIN", 5)
 
 
 class KirrModelManagar(models.Manager):
