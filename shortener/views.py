@@ -9,4 +9,5 @@ def kirr_redirect_view(request, *args, **kwargs):
 
 class KirrRedirectView(View):
 	def get(self, request, *args, **kwargs):
+		print(args, kwargs, request)
 		return HttpResponse("<h1>Kirr Url Shortener Again</h1>")
