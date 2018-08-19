@@ -8,13 +8,14 @@ class KirrModelManagar(models.Manager):
 		qs = queryset.filter(active=True)
 		return qs
 
-	def refresh_shortcodes(self, items=100):
-		print(items)
+	def refresh_shortcodes(self, items=None):
 		qs = KirrURL.objects.filter(id__gte=1)
+		if items is not None and isinstance(items, int):
+			qs = qs.order_by('-id')[:items]
 		new_codes = 0
 		for q in qs:
 			q.shortcode = 'http://' + str(create_shortcode(q)) + '.co'
-			print(q.shortcode)
+			print(q.id, q.shortcode)
 			q.save()
 			new_codes += 1
 		return f"New codes made: {new_codes}"
