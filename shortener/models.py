@@ -1,6 +1,11 @@
 from django.db import models
+from django.conf import settings
 
 from .utils import code_generator, create_shortcode
+
+SHORTCODE_MAX = settings.SHORTCODE_MAX
+SHORTCODE_MIN = settings.SHORTCODE_MIN
+
 
 class KirrModelManagar(models.Manager):
 	def all(self, *args, **kwargs):
