@@ -388,3 +388,12 @@ ALLOWED_HOSTS = ['djgo.com', '127.0.0.1', 'www.djgo.com']
 
 Now accessing the url with our custom domain like *http://djgo.com:8000/func-view/asdgsd/*
 This will redirect to the specified url of the object or return a 404 page
+
+# Django-hosts
+SOURCE: [django-hosts](https://django-hosts.readthedocs.io/en/latest/)
+
+We are going to use django-hosts package for our project, just visit the link above
+and follow the instructions there to install hosts and include in our project.
+
+We need to set DEFAULT_HOST equal to the hosts pattern that we refer as the default 
+pattern
