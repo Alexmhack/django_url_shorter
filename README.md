@@ -538,3 +538,53 @@ class ShortenURLForm(forms.Form):
 		print(url)
 		return url
 ```
+
+The above validation functions are not very safe so we use the in-built validatiors
+from django.core.validators and raise error for validation from django.core.exceptions
+
+```
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
+
+def validate_url(value):
+	url_validator = URLValidator()
+	try:
+		url_validator(url)
+	except Exception as e:
+		raise ValidationError(e)
+	return value
+
+class ShortenURLForm(forms.Form):
+	url = forms.URLField(validators=[validate_url])
+```
+
+Once we create a validator we can specify this custom validator for our field by inserting
+this function in the validators list of our field
+
+**NOTE:**Since forms in django2 has URLField that has validation from URLValidators 
+we don't need to write this extra code but we can have any other validator like checking i
+if the url entered has a .com domain or not.
+
+This is rather very simple logic but we create a separate file for our validators and then
+import our validator in the forms file
+
+**shortener/validators.py**
+```
+def validate_com_url(value):
+	if 'com' not in value:
+		raise ValidationError("Entered URL is not a valid .com url")
+	return value
+```
+
+We use the same validator inside our model url field also using the same attribute
+
+```
+from .validators import validate_com_url
+
+class KirrURL(models.Model):
+	url = models.URLField(max_length=220, validators=[validate_com_url])
+	...
+```
+
+Next time you try to save a model object with url field not having a .com in it then
+it will raise errors.
