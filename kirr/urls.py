@@ -18,9 +18,11 @@ from django.urls import path
 
 from shortener.views import (
 	KirrRedirectView,
+	HomeView,
 )
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
 	path('class/<shortcode>/', KirrRedirectView.as_view(), name='class-view'),
+	path('', HomeView.as_view(), name='home-view'),
 ]
