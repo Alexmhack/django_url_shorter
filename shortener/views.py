@@ -3,15 +3,24 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 
 from .models import KirrURL
+from .forms import ShortenURLForm
 
 class HomeView(View):
 	def get(self, request, *args, **kwargs):
-		return render(request, 'shortener/home.html', {})
+		form = ShortenURLForm()
+		context = {
+			'form': form
+		}
+		return render(request, 'shortener/home.html', context)
 
 	def post(self, request, *args, **kwargs):
-		url = request.POST.get('url')
-		print(f"URL TO SHORTEN: {url}")
-		return render(request, 'shortener/home.html', {'url': url})
+		form = ShortenURLForm(request.POST)
+		context = {
+			'form': form
+		}
+		if form.is_valid():
+			print(form.cleaned_data)
+		return render(request, 'shortener/home.html', context)
 
 
 class KirrRedirectView(View):
