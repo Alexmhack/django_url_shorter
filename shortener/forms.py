@@ -7,9 +7,9 @@ def validate_url(value):
 	try:
 		url_validator(value)
 	except Exception as e:
-		raise ValidationError(e)
+		raise ValidationError("Enter a valid url")
 	return value
 
 
 class ShortenURLForm(forms.Form):
-	url = forms.URLField(validators=[validate_url])
+	url = forms.URLField()
