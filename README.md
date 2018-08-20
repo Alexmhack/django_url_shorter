@@ -397,3 +397,5 @@ and follow the instructions there to install hosts and include in our project.
 
 We need to set DEFAULT_HOST equal to the hosts pattern that we refer as the default 
 pattern
+
+SOURCE: [udemy lecture](https://www.udemy.com/try-django-1-10/learn/v4/t/lecture/5922406?start=465)
