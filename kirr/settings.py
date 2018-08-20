@@ -54,9 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'kirr.urls'
-
 ROOT_HOSTCONF = 'kirr.hosts'
-
 DEFAULT_HOST = 'www'
 
 TEMPLATES = [
