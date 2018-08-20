@@ -1,1 +1,8 @@
-<h1>Home Page</h1>
+<div style="width:800px; margin:0 auto">
+	<h1>Home Page</h1>
+
+	<form method="POST" action='.'>
+		{% csrf_token %}
+		<input type='text' placeholder='url'>
+		<input type="submit" value="Shorten">
+</div>
