@@ -3,7 +3,7 @@
 
 	<form method="POST" action='.'>
 		{% csrf_token %}
-		<input name='url' type='text' placeholder='Enter url to shorten'>
+		{{ form.as_p }}
 		<input type="submit" value="Shorten">
 	</form>
 
