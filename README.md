@@ -399,3 +399,17 @@ We need to set DEFAULT_HOST equal to the hosts pattern that we refer as the defa
 pattern
 
 SOURCE: [udemy lecture](https://www.udemy.com/try-django-1-10/learn/v4/t/lecture/5922406?start=465)
+
+Basically what we did with django-hosts is that we made our website more advanced, you see
+the websites with www.name.domain and this gets redirected to whatever the SSL the website
+uses for e.g *http://* or *https://*, we did the same with the help of hosts, we made 
+our website work even if the user enter in the browser > *www.djgo.com*, our website
+will show the webpage, we also gave some custom urls to our website like the blog.djgo.com
+which will render the same view from ROOT_URLCONFS which our *kirr/urls.py*
+
+**On adding a host for our blog in hosts.py and the root urls as well as adding 
+blog.djgo.com to our ALLOWED_HOSTS and hosts file in drivers\etc we have a new url ready
+which will be blog.djgo.com:8000/shortcode/ which will show the view.**
+
+**hostsconf/views.py** simply takes in the path from the url if exists and then redirects
+it to the default url with or without path attached at end.
