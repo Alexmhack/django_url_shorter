@@ -18,9 +18,19 @@ class HomeView(View):
 		context = {
 			'form': form
 		}
+		template = "shortener/home.html"
 		if form.is_valid():
-			print(form.cleaned_data)
-		return render(request, 'shortener/home.html', context)
+			new_url = form.cleaned_data.get('url')
+			obj, created = KirrURL.objects.get_or_create(url=new_url)
+			context = {
+				'obj': obj,
+				'created': created
+			}
+			if created:
+				template = 'shortener/success.html'
+			else:
+				template = 'shortener/already-exists.html'
+		return render(request, template, context)
 
 
 class KirrRedirectView(View):
