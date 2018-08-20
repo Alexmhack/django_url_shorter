@@ -9,7 +9,9 @@ class HomeView(View):
 		return render(request, 'shortener/home.html', {})
 
 	def post(self, request, *args, **kwargs):
-		return render(request, 'shortener/home.html', {})
+		url = request.POST.get('url')
+		print(f"URL TO SHORTEN: {url}")
+		return render(request, 'shortener/home.html', {'url': url})
 
 
 class KirrRedirectView(View):
