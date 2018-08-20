@@ -7,4 +7,4 @@ def wildcard_redirect(request, path=None):
 	new_url = DEFAULT_REDIRECT_URL
 	if path is not None:
 		new_url = DEFAULT_REDIRECT_URL + '/' + path
-	return new_url
+	return HttpResponseRedirect(new_url)
