@@ -413,3 +413,76 @@ which will be blog.djgo.com:8000/shortcode/ which will show the view.**
 
 **hostsconf/views.py** simply takes in the path from the url if exists and then redirects
 it to the default url with or without path attached at end.
+
+# Django Templates
+**kirr/settings.py**
+
+```
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        ...
+```
+
+When we look at this section inside our settings.py file, it has this 'DIRS' value of
+an empty list, this setting is for the root templates folder for all our apps and project.
+
+Either we can set this folder by creating a folder in our root project directory where 
+manage.py file is located or we can just create templates folder inside each of our apps
+where we want to render html files.
+
+**Project directory tree** will look like this for root templates folder and we have to 
+tell our settings to look for templates in here
+```
++ kirr
++ shortener
++ templates
+	+ shortener
+		- home.html
+- .gitignore
+- db.sqlite3
+- manage.py
+- README.md
+```
+
+kirr/settings.py
+```
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        ...
+```
+
+**If you choose to reuse the app then in that case we need to create templates for the app
+inside the app folder itself and in that case we don't need to specify the templates 
+folder location in settings file for our project** 
+
+**Project directory tree** will look like this for templates inside the app itself
+```
++ kirr
++ shortener
+	+ templates
+		+ shortener
+			- home.html
++ templates
+	+ shortener
+		- home.html
+- .gitignore
+- db.sqlite3
+- manage.py
+- README.md
+```
+
+Now to use the templates using the render method in our views we will just use the path
+in both the cases whether we want root or app templates
+
+shortener/views.py
+```
+...
+	return render(request, 'shortener/home.html', {})
+...
+```
