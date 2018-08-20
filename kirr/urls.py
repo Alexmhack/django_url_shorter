@@ -17,12 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 from shortener.views import (
-	kirr_redirect_view,
 	KirrRedirectView,
 )
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
-	path('func-view/<shortcode>/', kirr_redirect_view, name='func-view'),
-	path('class-view/<shortcode>/', KirrRedirectView.as_view(), name='class-view'),
+	path('class/<shortcode>/', KirrRedirectView.as_view(), name='class-view'),
 ]
