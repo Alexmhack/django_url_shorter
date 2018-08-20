@@ -486,3 +486,55 @@ shortener/views.py
 	return render(request, 'shortener/home.html', {})
 ...
 ```
+
+# Django Forms
+In our views we have the HomeView which has the method for handling the GET request 
+through the get method, we import our form and pass it in to our context for get method
+
+For handling POST requests we need a similar logic but we need to get the data that users
+POSTED from the form, so for that the View class from django.views has a post method
+just like the get method.
+
+**shortener/views.py**
+```
+class HomeView(View):
+	...
+	def post(self, request, *args, **kwargs):
+		form = ShortenURLForm(request.POST)
+		context = {
+			'form': form
+		}
+
+		if form.is_valid():
+			print(form.cleaned_data)
+		return render(request, 'shortener/home.html', context)
+```
+
+In our get method we check if the POST request with form has the valid data and not some
+malicious, harmful, server-destroying data using the logic in if clause, *form.is_valid()*
+, if yes we print the cleaned_data from form and return the same page with the same form and
+data.
+
+Inside our forms.py we have a more secure method that does those cleaning up and is_valid
+process using the form validation for the seperate field, forms.Form has clean method 
+which we call upon using *super().clean()*, and store that cleaned data in *cleaned_data*
+
+*clean* is form validation method and cleaned_url is field validation method which checks
+if the data in field is cleaned, we simply store url from *cleaned_data* from our other
+method in *url* and return it.
+
+**shortener/forms.py**
+```
+class ShortenURLForm(forms.Form):
+	url = forms.URLField()
+
+	def clean(self):
+		cleaned_data = super().clean()
+		url = cleaned_data['url']
+		print(url)
+
+	def cleaned_url(self):
+		url = self.cleaned_data['url']
+		print(url)
+		return url
+```
