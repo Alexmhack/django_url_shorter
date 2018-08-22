@@ -5,4 +5,4 @@ from django.core.exceptions import ValidationError
 from .validators import validate_com_url
 
 class ShortenURLForm(forms.Form):
-	url = forms.URLField(validators=[validate_com_url])
+	url = forms.URLField()
