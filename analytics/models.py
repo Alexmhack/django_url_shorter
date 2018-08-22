@@ -4,7 +4,8 @@ from shortener.models import KirrURL
 
 class ClickAnalysisManager(models.Manager):
 	def click_analyse(self, instance):
-		if isinstance(KirrURL, instance):
+		print(f'INSTANCE: {instance}')
+		if isinstance(instance, KirrURL):
 			obj, created = self.get_or_create(kirr_url=instance)
 			obj.count += 1
 			obj.save()
