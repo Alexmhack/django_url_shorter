@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 
 from .utils import code_generator, create_shortcode
 from .validators import validate_com_url
@@ -44,4 +45,4 @@ class KirrURL(models.Model):
 
 	def get_short_url(self):
 		shortcode = self.shortcode
-		return f"http://www.djgo.com/{shortcode}"
+		return "http://www.djgo.com" + reverse('shortcode-view', kwargs={'shortcode': shortcode})
