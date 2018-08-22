@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from .models import ClickAnalysis
+from .models import ClickAnalytic
 
-admin.site.register(ClickAnalysis)
+admin.site.register(ClickAnalytic)
