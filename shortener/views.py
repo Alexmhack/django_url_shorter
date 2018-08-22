@@ -4,7 +4,7 @@ from django.views import View
 
 from .models import KirrURL
 from .forms import ShortenURLForm
-from analytics.models import ClickAnalysis
+from analytics.models import ClickAnalytic
 
 class HomeView(View):
 	def get(self, request, *args, **kwargs):
@@ -38,5 +38,5 @@ class KirrRedirectView(View):
 	def get(self, request, shortcode=None, *args, **kwargs):
 		object = get_object_or_404(KirrURL, shortcode=shortcode)
 		obj_url = object.url
-		ClickAnalysis.objects.click_analyse(object)
+		ClickAnalytic.objects.click_analyse(object)
 		return HttpResponseRedirect(obj_url)
