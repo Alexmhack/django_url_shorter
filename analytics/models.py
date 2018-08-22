@@ -5,7 +5,7 @@ from shortener.models import KirrURL
 class ClickAnalysisManager(models.Manager):
 	def click_analyse(self, instance):
 		if isinstance(KirrURL, instance):
-			obj, created = self.objects.get_or_create(kirr_url=instance)
+			obj, created = self.get_or_create(kirr_url=instance)
 			obj.count += 1
 			obj.save()
 			return obj.count
@@ -13,7 +13,7 @@ class ClickAnalysisManager(models.Manager):
 
 
 class ClickAnalysis(models.Model):
-	kirr_url = models.OneToOneField(KirrURL)
+	kirr_url = models.OneToOneField(KirrURL, on_delete=models.CASCADE)
 	count = models.IntegerField(default=0)
 	updated = models.DateTimeField(auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True)
