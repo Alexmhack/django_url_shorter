@@ -41,3 +41,7 @@ class KirrURL(models.Model):
 		if self.shortcode is None or self.shortcode == '':
 			self.shortcode = str(create_shortcode(self))
 		super(KirrURL, self).save(*args, **kwargs)
+
+	def get_short_url(self):
+		shortcode = self.shortcode
+		return f"http://www.djgo.com/{shortcode}"
