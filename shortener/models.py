@@ -26,7 +26,7 @@ class KirrModelManagar(models.Manager):
 
 
 class KirrURL(models.Model):
-	url = models.URLField(max_length=220, validators=[validate_com_url])
+	url = models.URLField(max_length=220)
 	shortcode = models.CharField(max_length=SHORTCODE_MAX, unique=True, blank=True)
 	updated = models.DateTimeField(auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True)
