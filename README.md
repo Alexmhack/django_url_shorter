@@ -587,4 +587,58 @@ class KirrURL(models.Model):
 ```
 
 Next time you try to save a model object with url field not having a .com in it then
-it will raise errors.
+it will raise errors. We actually will remove this validator since we want our shortener for 
+all domain types.
+
+In our models we are going to create a method for getting the shortened url for the object
+and use the method in the template with our object, we first used the reverse method that
+django.urls provied which takes in the view name from our urls and optionally any arguments,
+we have shortcode argument with our shortcode-view here so we pass in the kwargs with our
+shortcode.
+
+**kirr/views.py**
+```
+from django.urls import reverse
+
+class KirrURL(models.Model):
+	...
+
+	def get_short_url(self):
+		shortcode = self.shortcode
+		url_path = reverse('shortcode-view', kwargs={'shortcode': shortcode})
+		return url_path
+```
+
+The django.urls reverse method is nice but since we are using django_hosts for our hosts
+so we are going to use the reverse method from django_hosts.
+
+```
+from django_hosts import reverse
+
+class KirrURL(models.Model):
+...
+	def get_short_url(self):
+		shortcode = self.shortcode
+		url_path = reverse(
+			'shortcode-view',
+			kwargs={'shortcode': shortcode},
+			host='www',
+			scheme='http',
+			port='8000'
+		)
+		return url_path
+```
+
+The above method uses reverse method from django_hosts which works the same but gives more
+robust way, it adds scheme, port, host for our url and rest is same as django reverse.
+
+For using our method in template we just call our method without any brackets
+
+**NOTE:** Any method is called in template using template tags withour the brackets unlike in 
+our python code.
+
+```
+{{ obj.get_short_url }}
+```
+
+This is much more simpler than the previous one
