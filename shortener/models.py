@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
-from django.urls import reverse
+# from django.urls import reverse
+from django_hosts.resolvers import reverse
 
 from .utils import code_generator, create_shortcode
 from .validators import validate_com_url
@@ -45,4 +46,11 @@ class KirrURL(models.Model):
 
 	def get_short_url(self):
 		shortcode = self.shortcode
-		return "http://www.djgo.com" + reverse('shortcode-view', kwargs={'shortcode': shortcode})
+		url_path = reverse(
+			'shortcode-view',
+			kwargs={'shortcode': shortcode},
+			host='www',
+			scheme='http',
+			port='8000'
+		)
+		return url_path
