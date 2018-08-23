@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import dj_database_url
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n$eh&@+u$84&o3i5cr%!)chjtjrl1h(-%9k*lx#*=+gb8%s#$i'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['djgo.com', '127.0.0.1', 'www.djgo.com', 'blog.djgo.com', 'live.djgo.com']
+ALLOWED_HOSTS = ['.herokuapp.com', 'djgo.com', '127.0.0.1', 'www.djgo.com', 'blog.djgo.com', 'live.djgo.com']
 
 
 # Application definition
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django_hosts.middleware.HostsRequestMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -128,7 +131,16 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
+# simplified static file serving
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # SHORTENER URLS SETTINGS
 SHORTCODE_MAX = 20
 SHORTCODE_MIN = 8
+
+# Heroku: update database configuration from $DATABASE_URL
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+django_heroku.settings(locals())
