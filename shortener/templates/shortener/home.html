@@ -5,15 +5,16 @@
 {% endblock %}
 
 {% block content %}
-	<h1 class="mb-3 text-left ml-3">Shorten URL</h1>
 
-		<div class="col-sm-4 col-sm-offset-4">
-			<form method="POST" action='.'>
-				{% csrf_token %}
-				{{ form.as_p }}
-				<input class="btn btn-primary" type="submit" value="Shorten">
-			</form>
-		</div>
+	<div class="col-sm-4">
+		<form method="POST" action='.'>
+			{% csrf_token %}
+			{{ form.as_p }}
+			<div class="text-center">
+				<input class="mt-4 btn btn-primary" type="submit" value="Shorten">
+			</div>
+		</form>
+	</div>
 
 	<p>{{ url }}</p>
 

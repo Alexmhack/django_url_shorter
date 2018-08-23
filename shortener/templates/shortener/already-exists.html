@@ -5,12 +5,18 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Exists</h1>
-	<p>{{ obj.url }}</p>
-	{% if obj.clickanalytic %}
-		<p>Count: {{ obj.clickanalytic.count }}</p>
-	{% endif %}
-	<a href="{{ obj.get_short_url }}" id="shortened-url">{{ obj.get_short_url }}</a>
-	<p><a class="mt-3 btn btn-info" href='/'>NEW +</a></p>
+	<div class="text-center">
+		<h1 class="animated fadeIn mb-4 white-text">URL Exists</h1>
+		<!-- <p class="animated fadeIn text-muted">{{ obj.url }}</p> -->
+		{% if obj.clickanalytic %}
+			<p class="animated fadeIn text-muted mb-4">Count: {{ obj.clickanalytic.count }}</p>
+		{% endif %}
+
+		<div class="btn-group mt-4 mb-4" role="group" aria-label="Basic example">
+			<a href="{{ obj.get_short_url }}" type="button" class="mr-3 btn btn-pink waves-effect"  id="shortened">{{ obj.get_short_url }}</a>
+		    <button type="button" id="copyButton" onclick="copyToClipboard('#shortened')" class="btn btn-success">Copy</button>
+		</div>
+
+		<p><a class="mt-3 btn btn-info mb-4" href='/'>NEW +</a></p>
 	</div>
 {% endblock %}
