@@ -1,11 +1,19 @@
-<div style="width:800px; margin:0 auto">
+{% extends "base.html" %}
+
+{% block title %}
+ {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
 	<h1>Shorten URL</h1>
 
 	<form method="POST" action='.'>
 		{% csrf_token %}
 		{{ form.as_p }}
-		<input type="submit" value="Shorten">
+		<input class="btn btn-primary" type="submit" value="Shorten">
 	</form>
 
 	<p>{{ url }}</p>
-</div>
+
+{% endblock %}

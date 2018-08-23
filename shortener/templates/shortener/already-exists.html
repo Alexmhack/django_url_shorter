@@ -1,37 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>URL Shotener</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-	<div style="width:800px; margin:0 auto">
+{% block title %}
+	URL Exists
+{% endblock %}
+
+{% block content %}
 	<h1>Exists</h1>
 	<p>{{ obj.url }}</p>
 	{% if obj.clickanalytic %}
 		<p>Count: {{ obj.clickanalytic.count }}</p>
 	{% endif %}
 	<a href="{{ obj.get_short_url }}" id="shortened-url">{{ obj.get_short_url }}</a>
-	<button id="copyButton" onclick="copyURL()">Copy</button>
-	<a href='/'>NEW +</a>
+	<p><a href='/'>NEW +</a></p>
 	</div>
-	<script>
-		function copyURL() {
-		  console.log('function is working');
-		  /* Get the text field */
-		  var copyText = document.getElementById("shortened-url").innerHTML();
-		  console.log(copyText);
-
-		  /* Select the text field */
-		  copyText.select();
-
-		  /* Copy the text inside the text field */
-		  document.execCommand("copy");
-
-		  /* Alert the copied text */
-		  document.getElementById("copyButton").innerHTML("Copied!");
-		} 
-	</script>
-
-</body>
-</html>
+{% endblock %}

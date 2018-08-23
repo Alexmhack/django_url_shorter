@@ -1,34 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>URL Shortener</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-	<div style="width:800px; margin:0 auto">
+{% block title %}
+	Short URL Created
+{% endblock %}
+
+{% block content %}
+
 	<h1>Created</h1>
 	<p>{{ obj.url }}</p>
 	<a href="{{ obj.get_short_url }}" id="shortened-url">{{ obj.get_short_url }}</a>
-	<button onclick="copyURL()">Copy</button> 
-	<a href='/'>NEW +</a>
-	</div>
-	<script>
-		function copyURL() {
-		  console.log('function is working');
-		  /* Get the text field */
-		  var copyText = document.getElementById("shortened-url").innerHTML();
-		  console.log(copyText);
-
-		  /* Select the text field */
-		  copyText.select();
-
-		  /* Copy the text inside the text field */
-		  document.execCommand("copy");
-
-		  /* Alert the copied text */
-		  document.getElementById("copyButton").innerHTML("Copied!");
-		} 
-	</script>
-
-</body>
-</html>
+	<p><a href='/'>NEW +</a></p>
+	
+{% endblock %}
