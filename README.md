@@ -718,3 +718,74 @@ class KirrRedirectView(View):
 
 We pass in the object(instance) to our method which does all the work, but remember *object
 and count will only be created when the shortened url is clicked*
+
+# Deploying with [heroku](https://www.heroku.com)
+You can visit the site and follow their awesome docs to install and get started with heroku
+deployment with django. To check heroku is installed and running run
+
+```
+> heroku
+
+CLI to interact with Heroku
+
+VERSION
+  heroku/7.7.4 win32-x64 node-v10.6.0
+
+USAGE
+  $ heroku [COMMAND]
+
+COMMANDS
+  access          manage user access to apps
+  addons          tools and services for developing, extending, and operating your
+                  app
+  apps            manage apps on Heroku
+  auth            check 2fa status
+  authorizations  OAuth authorizations
+  .....
+```
+
+Running heroku in the command prompt should give you the heroku version, node version and
+list of all commands
+
+To get all the apps you have on heroku run
+
+```
+heroku apps --all
+```
+
+To get all the addons on heroku
+
+```
+heroku addons
+```
+
+We need to configure our project before deploying it on heroku, you can look at the whole
+process of configuration for deploying our django app on heroku on [heroku documentation](
+https://devcenter.heroku.com/categories/working-with-django)
+
+We need requirements.txt file in which all our project dependencies will be reflected and 
+there are some heroku deployment dependencies which you can look at in our 
+requirements.txt file, we created everything in virtualenv so we just need to do
+
+```
+pip freeze > requirements.txt
+git add requirements.txt
+git commit -m "create requirements file for our project"
+```
+
+**requirements.txt**
+
+```
+Django==2.0.7
+django-hosts==3.0
+django-widget-tweaks==1.4.2
+psycopg2==2.7.5
+pytz==2018.5
+dj-database-url==0.5.0
+gunicorn==19.9.0
+whitenoise==3.3.1
+
+```
+
+The file for our project should look like this, here whitenoise, gunicorn, dj-database-url,
+psycopg2 are the requirements for heroku, rest are our kirr project requirements.
