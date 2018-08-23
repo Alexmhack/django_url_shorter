@@ -642,3 +642,79 @@ our python code.
 ```
 
 This is much more simpler than the previous one
+
+# Click Analysis
+After creating the shorten url that works we need to be able to track the clicks for each
+shortened url and have it stored the count on every click, so for this we decide to create
+a separate app named analytics.
+
+```
+python manage.py startapp anayltics
+```
+
+We are only going to use the models.py for this particular app since we got all our views 
+ready in shortener app, we need a OneToOneField to store the KirrURL object and a interger
+field for storing the count of the clicks, optionally we can use the timestamp and updated 
+from the KirrURL model which automatically gets saved.
+
+```
+from shortener.models import KirrURL
+
+class ClickAnalytic(models.Model):
+	kirr_url = models.OneToOneField(KirrURL, on_delete=models.CASCADE)
+	count = models.IntegerField(default=0)
+	updated = models.DateTimeField(auto_now=True)
+	timestamp = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return f"{self.count}"
+```
+
+__str__() method gives us a way to print our object and show the count. Now We need a 
+method for creating the object once our shortened url is clicked and also increment
+the count (set 0 as default) by one on each click, we create a method in the model manager
+of the model and name it click_analyse, which takes in a instance of the KirrURL object
+and does some checking, tries to get or create ClickAnalytic object with the instance
+as the kirrURL, increment count, save the object and return it.
+
+**NOTE:** We create model manager using the class models.Manager and after creating manager
+we need to define it as our custom in the model by manager to our model objects.
+
+```
+class ClickAnalyticManager(models.Manager):
+	def click_analyse(self, instance):
+		print(f'INSTANCE: {instance}')
+		if isinstance(instance, KirrURL):
+			try:
+				obj, created = self.get_or_create(kirr_url=instance)
+				obj.count += 1
+				obj.save()
+				return obj.count
+			except Exception as e:
+				print(e)
+				
+		return None
+
+
+class ClickAnalytic(models.Model):
+	...
+	objects = ClickAnalyticManager()
+```
+
+*We are able to use get_or_create with self because we call manager and store it in objects
+variable which gives it that functionality*
+
+# Calling click_analyse
+The only thing left is to call our method from shortener redirect view which is very simple
+
+```
+class KirrRedirectView(View):
+	def get(self, request, shortcode=None, *args, **kwargs):
+		object = get_object_or_404(KirrURL, shortcode=shortcode)
+		obj_url = object.url
+		ClickAnalytic.objects.click_analyse(object)
+		return HttpResponseRedirect(obj_url)
+```
+
+We pass in the object(instance) to our method which does all the work, but remember *object
+and count will only be created when the shortened url is clicked*
