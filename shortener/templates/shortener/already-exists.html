@@ -8,6 +8,9 @@
 	<div style="width:800px; margin:0 auto">
 	<h1>Exists</h1>
 	<p>{{ obj.url }}</p>
+	{% if obj.clickanalytic %}
+		<p>Count: {{ obj.clickanalytic.count }}</p>
+	{% endif %}
 	<a href="{{ obj.get_short_url }}" id="shortened-url">{{ obj.get_short_url }}</a>
 	<button id="copyButton" onclick="copyURL()">Copy</button>
 	<a href='/'>NEW +</a>
