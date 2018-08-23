@@ -784,8 +784,9 @@ pytz==2018.5
 dj-database-url==0.5.0
 gunicorn==19.9.0
 whitenoise==3.3.1
-
+django-heroku==0.3.1
 ```
 
 The file for our project should look like this, here whitenoise, gunicorn, dj-database-url,
-psycopg2 are the requirements for heroku, rest are our kirr project requirements.
+psycopg2, django-heroku are the requirements for heroku, rest are our kirr project 
+requirements.
