@@ -5,4 +5,12 @@ from django.core.exceptions import ValidationError
 from .validators import validate_com_url
 
 class ShortenURLForm(forms.Form):
-	url = forms.URLField()
+	url = forms.URLField(
+		label='',
+		widget=forms.TextInput(
+			attrs={
+				'placeholder': 'Long URL',
+				'class': 'form-control'
+			}
+		)
+	)
