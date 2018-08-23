@@ -6,14 +6,13 @@ class ClickAnalyticManager(models.Manager):
 	def click_analyse(self, instance):
 		print(f'INSTANCE: {instance}')
 		if isinstance(instance, KirrURL):
-			obj, created = self.get_or_create(kirr_url=instance)
-			if created:
-				created.count += 1
-				created.save()
+			try:
+				obj, created = self.get_or_create(kirr_url=instance)
+				obj.count += 1
+				obj.save()
 				return obj.count
-			obj.count += 1
-			obj.save()
-			return obj.count
+			except Exception as e:
+				print(e)
 				
 		return None
 
