@@ -46,8 +46,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django_hosts.middleware.HostsRequestMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -146,6 +146,6 @@ SHORTCODE_MAX = 20
 SHORTCODE_MIN = 8
 
 # Heroku: update database configuration from $DATABASE_URL
-db_from_env = dj_database_url.config()
+db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 django_heroku.settings(locals())
