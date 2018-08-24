@@ -59,8 +59,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'kirr.urls'
 ROOT_HOSTCONF = 'kirr.hosts'
-DEFAULT_HOST = 'www'
-DEFAULT_REDIRECT_URL = "http://www.blooming-journey-56305.herokuapp.com"
+DEFAULT_HOST = 'https'
+DEFAULT_REDIRECT_URL = "https://www.blooming-journey-56305.herokuapp.com"
 PARENT_HOST = "blooming-journey-56305.herokuapp.com"
 
 TEMPLATES = [
