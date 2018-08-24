@@ -57,7 +57,7 @@ MIDDLEWARE = [
     # 'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
-# ROOT_URLCONF = 'kirr.urls'
+ROOT_URLCONF = 'kirr.urls'
 # ROOT_HOSTCONF = 'kirr.hosts'
 # DEFAULT_HOST = 'https'
 # DEFAULT_REDIRECT_URL = "https://www.blooming-journey-56305.herokuapp.com"
