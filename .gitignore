@@ -104,7 +104,7 @@ venv.bak/
 .mypy_cache/
 
 # shortener app migrations folder
-shortener/migrations
+# shortener/migrations
 
 # analytics app migration folder
-analytics/migrations
+# analytics/migrations
