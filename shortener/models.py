@@ -46,5 +46,5 @@ class KirrURL(models.Model):
 
 	def get_short_url(self):
 		shortcode = self.shortcode
-		url_path = 'https://blooming-journey-56305.herokuapp.com/' + shortcode
+		url_path = 'https://zagl.herokuapp.com/' + shortcode
 		return url_path
