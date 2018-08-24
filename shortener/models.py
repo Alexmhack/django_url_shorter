@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
-# from django.urls import reverse
-from django_hosts.resolvers import reverse
+from django.urls import reverse
+# from django_hosts.resolvers import reverse
 
 from .utils import code_generator, create_shortcode
 from .validators import validate_com_url
@@ -46,11 +46,5 @@ class KirrURL(models.Model):
 
 	def get_short_url(self):
 		shortcode = self.shortcode
-		url_path = reverse(
-			'shortcode-view',
-			kwargs={'shortcode': shortcode},
-			host='www',
-			scheme='http',
-			port='8000'
-		)
+		url_path = 'https://blooming-journey-56305.herokuapp.com/' + shortcode
 		return url_path
